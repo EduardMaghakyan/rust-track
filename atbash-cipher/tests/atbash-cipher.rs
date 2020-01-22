@@ -26,7 +26,7 @@ fn test_encode_spaces() {
 #[test]
 #[ignore]
 fn test_encode_mindblowingly() {
-    assert_eq!(cipher::encode("mindblowingly"), "nrmwyoldrmtob");
+    assert_eq!(cipher::encode("mindblowingly"), "nrmwy oldrm tob");
 }
 
 #[test]
@@ -34,7 +34,7 @@ fn test_encode_mindblowingly() {
 fn test_encode_numbers() {
     assert_eq!(
         cipher::encode("Testing,1 2 3, testing."),
-        "gvhgrmt1 2 3 gvhgrmt"
+        "gvhgr mt123 gvhgr mt"
     );
 }
 

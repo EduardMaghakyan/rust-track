@@ -1,19 +1,39 @@
+fn atbash(plain: &str) -> String {
+    plain
+        .chars()
+        .enumerate()
+        .filter_map(|(_, c)| {
+            if c.is_ascii_alphabetic() {
+                let ascii_code = c.to_ascii_lowercase() as u8;
+                Some((122 - (ascii_code - 97)) as char)
+            } else if c.is_numeric() {
+                Some(c)
+            } else {
+                None
+            }
+        })
+        .collect()
+}
+
 /// "Encipher" with the Atbash cipher.
 pub fn encode(plain: &str) -> String {
-    let mut encoded_string = String::from("");
-    for c in plain.chars() {
-        if c.is_ascii_whitespace() || c.is_numeric() {
-            encoded_string.push(c);
-        } else if c.is_ascii_alphanumeric() {
-            let ascii_code = c.to_ascii_lowercase() as u8;
-            let ascii_char = (122 - (ascii_code - 97)) as char;
-            encoded_string.push(ascii_char)
-        }
-    }
-    encoded_string
+    let group_length = 5;
+    atbash(plain)
+        .chars()
+        .enumerate()
+        .flat_map(|(i, c)| {
+            if i != 0 && i % group_length == 0 {
+                Some(' ')
+            } else {
+                None
+            }
+            .into_iter()
+            .chain(std::iter::once(c))
+        })
+        .collect::<String>()
 }
 
 /// "Decipher" with the Atbash cipher.
 pub fn decode(cipher: &str) -> String {
-    unimplemented!("Decoding of {:?} in Atbash cipher.", cipher);
+    atbash(cipher)
 }
