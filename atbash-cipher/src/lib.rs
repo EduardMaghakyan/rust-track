@@ -18,6 +18,7 @@ fn atbash(plain: &str) -> String {
 /// "Encipher" with the Atbash cipher.
 pub fn encode(plain: &str) -> String {
     let group_length = 5;
+    // Output cipher in groups of 5
     atbash(plain)
         .chars()
         .enumerate()
