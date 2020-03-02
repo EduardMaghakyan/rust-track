@@ -1,17 +1,16 @@
 fn atbash(plain: &str) -> String {
     plain
-        .chars()
-        .enumerate()
-        .filter_map(|(_, c)| {
-            if c.is_ascii_alphabetic() {
-                let ascii_code = c.to_ascii_lowercase() as u8;
-                Some((122 - (ascii_code - 97)) as char)
-            } else if c.is_numeric() {
-                Some(c)
-            } else {
-                None
+        .bytes()
+        .filter_map(|c| {
+            match c {
+                c if c.is_ascii_alphabetic() => {
+                    Some(b'z' - (c.to_ascii_lowercase() - b'a'))
+                },
+                c if c.is_ascii_digit() => Some(c),
+                _ => None
             }
         })
+        .map(|c| c as char)
         .collect()
 }
 
@@ -38,3 +37,4 @@ pub fn encode(plain: &str) -> String {
 pub fn decode(cipher: &str) -> String {
     atbash(cipher)
 }
+
