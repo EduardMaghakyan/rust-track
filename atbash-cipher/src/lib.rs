@@ -6,7 +6,7 @@ fn atbash(plain: &str) -> String {
             c if c.is_ascii_digit() => Some(c),
             _ => None,
         })
-        .map(|c| c as char)
+        .map(char::from)
         .collect()
 }
 
