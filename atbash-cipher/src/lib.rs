@@ -1,4 +1,4 @@
-fn atbash(plain: &str) -> String {
+fn atbash<'a>(plain: &'a str) -> impl Iterator<Item = char> + 'a {
     plain
         .bytes()
         .filter_map(|c| match c {
@@ -7,7 +7,6 @@ fn atbash(plain: &str) -> String {
             _ => None,
         })
         .map(char::from)
-        .collect()
 }
 
 /// "Encipher" with the Atbash cipher.
@@ -15,7 +14,6 @@ pub fn encode(plain: &str) -> String {
     let group_length = 5;
     // Output cipher in groups of 5
     atbash(plain)
-        .chars()
         .enumerate()
         .flat_map(|(i, c)| {
             if i != 0 && i % group_length == 0 {
@@ -31,5 +29,5 @@ pub fn encode(plain: &str) -> String {
 
 /// "Decipher" with the Atbash cipher.
 pub fn decode(cipher: &str) -> String {
-    atbash(cipher)
+    atbash(cipher).collect::<String>()
 }
