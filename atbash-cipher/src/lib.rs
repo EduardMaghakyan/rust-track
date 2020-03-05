@@ -1,4 +1,4 @@
-fn atbash<'a>(plain: &'a str) -> impl Iterator<Item = char> + 'a {
+fn atbash(plain: &str) -> impl Iterator<Item = char> + '_ {
     plain
         .bytes()
         .filter_map(|c| match c {
