@@ -9,7 +9,6 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a [&str]) -> HashSet<&'
     }
 
     let mut anagrams: HashSet<&'a str> = HashSet::new();
-    // let mut anagrams = HashSet::new();
     for possible in possible_anagrams {
         // if words have different length they can't be anagrams
         if possible.chars().count() != word.chars().count() {
